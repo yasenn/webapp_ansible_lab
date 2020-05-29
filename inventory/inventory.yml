@@ -1,0 +1,14 @@
+# This is the default 'hosts' file.
+# There are two groups of hosts: web & db
+#
+
+# uncomment these lines of you want to deploy to specific hosts
+# web:
+#   hosts:
+#     web1.server.host
+#     web2.server.host
+# 
+# db:
+#   hosts:
+#     db1.server.host
+#     db2.server.host

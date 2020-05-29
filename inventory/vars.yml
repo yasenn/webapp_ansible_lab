@@ -1,0 +1,52 @@
+# This is the default ansible vars file.
+#
+
+## Cloud provider for VMs provision
+## Available values: `aws`
+## TODO: configure `gcp` provision
+cloud_provider: aws
+
+ec2_settings:
+  region: 'eu-west-3'
+  cidr_block: '0.0.0.0'
+  subnet: 172.16.16.0/24
+  public_key: public_key
+  security_groups:
+    - description: Allow SSH
+      name: allow_ssh
+      rules:
+          - proto: tcp
+            from_port: 22
+            to_port: 22
+            cidr_ip: 0.0.0.0/0
+  routing_tables:
+    - subnet: public
+      routes:
+          - dest: '0.0.0.0'
+            gateway_id: local
+          - dest: '0.0.0.0/0'
+            gateway_id: "{{ igw_id }}"
+
+gcp_settings:
+  gcp_service_account: 
+  project: 
+  # region:
+  # zone:
+  # vm_name:
+  # # For SharedVPC:
+  # tags:
+  # custom_cpu:
+  # custom_memory:
+  # boot_disk_size:
+  # public_ip:
+  # private_ip:
+
+instances:
+  - role: webserver
+    type: t2.micro
+    count: 1
+    groups: [allow_ssh]
+  - role: dbserver
+    type: t2.micro
+    ebs_optimized: True
+    count: 1

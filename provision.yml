@@ -1,0 +1,25 @@
+# This playbook installs Nginx and PostgreSQL 
+#
+---
+hosts: all
+
+vars_prompt:
+- name: "ec2_image"
+  prompt: "EC2 image ID"
+  default: "ami-05d7e0c35c7d138c5"  # Amazon Linux AMI amzn-ami-2018.03.20200430 x86_64 ECS HVM GP2 (region: eu-west3)
+- name: "aws_region"
+  prompt: "AWS region"
+  default: "eu-west-3"
+- name: "igw_id"
+  prompt: "Internet gateway ID"
+  default: "igw-0db996931a723e328"
+- name: "instance_type"
+  prompt: "Instance type"
+  default: "t2.micro"
+
+vars_files: ./inventory/vars.yml
+
+tasks:
+  # Use block for setup web-server
+  - name: "Provision and setup web-server in {{ cloud_provider }} cloud"
+    include_tasks: '{{ cloud_provider|lower }}/main.yml'

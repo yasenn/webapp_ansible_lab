@@ -1,0 +1,6 @@
+---
+# placeholder for GCP provision
+
+- name: Placeholder warning message
+  fail:
+    msg: Please, setup your GCP playbook settings
