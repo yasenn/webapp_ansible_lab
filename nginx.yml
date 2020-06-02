@@ -1,0 +1,13 @@
+- hosts: web
+  vars_files: inventory/vars.yml
+  roles:
+   - clouddrove.ansible_role_docker_nginx
+
+  post_tasks:
+    - name: Start container, connect to network and link
+      docker_container:
+        name: nginx
+        image: docker:latest
+        state: started
+        env:
+          NGINX_HOST: "nginx_virtualhost1"

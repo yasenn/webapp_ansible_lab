@@ -3,11 +3,11 @@
 #
 
 # uncomment these lines of you want to deploy to specific hosts
-# web:
-#   hosts:
-#     web1.server.host
-#     web2.server.host
-# 
+web:
+  hosts:
+    web1.server.host
+    web2.server.host
+
 db:
   hosts:
     db.server.host
