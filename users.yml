@@ -1,0 +1,16 @@
+- hosts: all
+  vars_files: inventory/vars.yml
+
+  tasks:
+    - name: add users with SSH keys
+      block:
+        - name: add users with SSH keys
+          user:
+            name: "{{ item }}"
+            ssh_key_type: ed25519
+        - name: add keys
+          authorized_key:
+            user: "{{ item }}"
+            state: present
+            key: "{{ item.value }}"
+      with_items: users_keys

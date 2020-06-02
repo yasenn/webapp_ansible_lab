@@ -64,3 +64,8 @@ pg_dumps:
   dev_db: "demo-small.zip"
   stage_db: "demo-medium.zip"
   big_db: "demo-big.zip"
+
+users_keys:
+  fred: "{{ lookup('vault', 'secret/fred_ssh.ed25519') }}"
+  adam: "{{ lookup('vault', 'secret/adam_ssh.ed25519') }}"
+  mark: "{{ lookup('vault', 'secret/mark_ssh.ed25519') }}"
