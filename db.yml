@@ -1,3 +1,5 @@
+---
+# Install PostgreSQL on `db` hosts and restore databases from appropriate dumps
 - hosts: db
   become: yes
   vars_files:
@@ -6,22 +8,15 @@
     - ansible-role-postgresql
 
 - post_tasks:
-  - name: Download demo-small database dump
-    get_url:
-      url: https://edu.postgrespro.ru/demo-small.zip
-      dest: /tmp/demo-small.zip
-  - name: restore demo-small database
-    postgresql_db:
-      name: restore demo-small
-      state: restore
-      target: /tmp/demo-small.zip
-  - name: restore demo-medium database
-    postgresql_db:
-      name: restore demo-medium
-      state: restore
-      target: /tmp/demo-medium.zip
-  - name: restore demo-big database
-    postgresql_db:
-      name: restore demo-big
-      state: restore
-      target: /tmp/demo-big.zip
+  - name: Download and restore database dumps
+    block:
+      - name: Download database dumps
+        get_url:
+          url: "{{ pg_dumps_servername }}/{{ item.value }}"
+          dest: /tmp/
+      - name: restore databases
+        postgresql_db:
+          name: "restore {{ item.key }}"
+          state: restore
+          target: "/tmp/{{ item.value }}"
+      with_items: pg_dumps
