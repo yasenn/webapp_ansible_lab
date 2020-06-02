@@ -1,6 +1,6 @@
+---
 # This playbook installs Nginx and PostgreSQL 
 #
----
 hosts: all
 
 vars_prompt:

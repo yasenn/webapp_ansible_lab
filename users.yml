@@ -1,3 +1,5 @@
+---
+# Add users and set their ssh keys
 - hosts: all
   vars_files: inventory/vars.yml
 

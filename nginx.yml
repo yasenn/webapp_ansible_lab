@@ -1,3 +1,5 @@
+---
+# Install nginx
 - hosts: web
   vars_files: inventory/vars.yml
   roles:
