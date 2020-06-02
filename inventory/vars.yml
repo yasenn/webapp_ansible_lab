@@ -50,3 +50,17 @@ instances:
     type: t2.micro
     ebs_optimized: True
     count: 1
+
+postgresql_databases:
+  - name: dev_db
+  - name: stage_db
+  - name: big_db
+postgresql_users:
+  - name: db_user
+    password: "{{ lookup('vault', 'secret/db_password') }}"
+
+pg_dumps_servername: "https://edu.postgrespro.ru/"
+pg_dumps:
+  dev_db: "demo-small.zip"
+  stage_db: "demo-medium.zip"
+  big_db: "demo-big.zip"

@@ -8,7 +8,6 @@
 #     web1.server.host
 #     web2.server.host
 # 
-# db:
-#   hosts:
-#     db1.server.host
-#     db2.server.host
+db:
+  hosts:
+    db.server.host

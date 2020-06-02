@@ -1,0 +1,27 @@
+- hosts: db
+  become: yes
+  vars_files:
+    - inventory/vars.yml
+  roles:
+    - ansible-role-postgresql
+
+- post_tasks:
+  - name: Download demo-small database dump
+    get_url:
+      url: https://edu.postgrespro.ru/demo-small.zip
+      dest: /tmp/demo-small.zip
+  - name: restore demo-small database
+    postgresql_db:
+      name: restore demo-small
+      state: restore
+      target: /tmp/demo-small.zip
+  - name: restore demo-medium database
+    postgresql_db:
+      name: restore demo-medium
+      state: restore
+      target: /tmp/demo-medium.zip
+  - name: restore demo-big database
+    postgresql_db:
+      name: restore demo-big
+      state: restore
+      target: /tmp/demo-big.zip

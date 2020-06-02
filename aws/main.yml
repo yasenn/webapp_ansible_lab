@@ -39,7 +39,7 @@
   ec2:
       termination_protection: yes
       region: '{{ ec2_settings.region }}'
-      image: ec2_settings.ami-ef76e898 # amzn-ami-vpc-nat-hvm-2015.03.0.x86_64-ebs
+      image: "{{ lookup('vault', 'secret/ec2_ami') }}"
       instance_type: '{{ ec2_settings.region }}'
       exact_count: 1
       vpc_subnet_id: "{{ (vpc_subnet.results|selectattr('subnet.tags.net', 'equalto', 'public')|first).subnet.id }}"
